@@ -312,6 +312,9 @@
 		AF91BB97202C74D0003E6366 /* BroadcastItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF91BB96202C74D0003E6366 /* BroadcastItem.swift */; };
 		AF91BBA1202C8B72003E6366 /* Broadcast+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF91BBA0202C8B72003E6366 /* Broadcast+Style.swift */; };
 		B01D70BABC86CE9552C07C2A /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01D7CF174F019F9D8C9DA51 /* RoundedImageView.swift */; };
+		B6F67B99287EEE8B003213ED /* WishlistAdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B96287EEE8A003213ED /* WishlistAdTableViewCell.swift */; };
+		B6F67B9A287EEE8B003213ED /* WishlistAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B97287EEE8B003213ED /* WishlistAdView.swift */; };
+		B6F67B9B287EEE8B003213ED /* WishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B98287EEE8B003213ED /* WishViewModel.swift */; };
 		CBD2F08D20615990002AA385 /* TextField+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2F08C20615990002AA385 /* TextField+State.swift */; };
 		CF05B7E023325968003A7F1C /* FavoriteFolderActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF05B7DF23325968003A7F1C /* FavoriteFolderActionButton.swift */; };
 		CF05BA02233B78BC003A7F1C /* FavoriteSearchEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF05BA01233B78BC003A7F1C /* FavoriteSearchEmptyView.swift */; };
@@ -780,6 +783,9 @@
 		AF91BB96202C74D0003E6366 /* BroadcastItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastItem.swift; sourceTree = "<group>"; };
 		AF91BBA0202C8B72003E6366 /* Broadcast+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Broadcast+Style.swift"; sourceTree = "<group>"; };
 		B01D7CF174F019F9D8C9DA51 /* RoundedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
+		B6F67B96287EEE8A003213ED /* WishlistAdTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishlistAdTableViewCell.swift; sourceTree = "<group>"; };
+		B6F67B97287EEE8B003213ED /* WishlistAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishlistAdView.swift; sourceTree = "<group>"; };
+		B6F67B98287EEE8B003213ED /* WishViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishViewModel.swift; sourceTree = "<group>"; };
 		CB3CF1561F73E5870041EF20 /* FinniversKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FinniversKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBD2F08C20615990002AA385 /* TextField+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+State.swift"; sourceTree = "<group>"; };
 		CF05B7DF23325968003A7F1C /* FavoriteFolderActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteFolderActionButton.swift; sourceTree = "<group>"; };
@@ -1619,6 +1625,7 @@
 		44A5579A22E71FEB001667AE /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				B6F67B95287EEE60003213ED /* WishlistTableViewCell */,
 				D7C750332731C3B3002BDE98 /* SavedSearchShelfCell */,
 				D755239D273006CD00C0C7DD /* RecentlyFavoritedShelfCell */,
 				44A5579B22E71FEB001667AE /* BasicTableViewCell */,
@@ -2535,6 +2542,16 @@
 				B01D7CF174F019F9D8C9DA51 /* RoundedImageView.swift */,
 			);
 			path = RoundedImageView;
+			sourceTree = "<group>";
+		};
+		B6F67B95287EEE60003213ED /* WishlistTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				B6F67B96287EEE8A003213ED /* WishlistAdTableViewCell.swift */,
+				B6F67B97287EEE8B003213ED /* WishlistAdView.swift */,
+				B6F67B98287EEE8B003213ED /* WishViewModel.swift */,
+			);
+			path = WishlistTableViewCell;
 			sourceTree = "<group>";
 		};
 		CF0F6B902360682100CA62FD /* Priming */ = {
@@ -3454,6 +3471,7 @@
 				DAA9A3A8210215400021F7DC /* Selectionbox.swift in Sources */,
 				625A220D221EB30700733101 /* UserAdManagementUserActionCell.swift in Sources */,
 				899D0BF8222D58D700794DEC /* FullscreenGalleryOverlayView.swift in Sources */,
+				B6F67B9B287EEE8B003213ED /* WishViewModel.swift in Sources */,
 				444246032137D60400D42AB8 /* FavoriteFolderViewModel.swift in Sources */,
 				CF7E7B53230C2A7A001D514E /* FavoriteFolderActionViewModel.swift in Sources */,
 				4940480023CDBEC500ECBCFD /* ViewingsView.swift in Sources */,
@@ -3484,6 +3502,7 @@
 				089DF42321C13178008A8711 /* RectangleGiftView.swift in Sources */,
 				4447F6D11FDB2B110033DBC1 /* Label+Style.swift in Sources */,
 				441FE431209A24E500B04EF1 /* AdRecommendationsGridHeaderView.swift in Sources */,
+				B6F67B9A287EEE8B003213ED /* WishlistAdView.swift in Sources */,
 				0881432A22E1B974008CB5DA /* ToastButton.swift in Sources */,
 				9B28DE8023266C5000D69C15 /* Panel.swift in Sources */,
 				443A641E209A503A006BFB38 /* NotificationsListHeaderView.swift in Sources */,
@@ -3758,6 +3777,7 @@
 				8D68071A775A6BD8DDE777A3 /* SwitchViewStyle.swift in Sources */,
 				8D68020C8D99FFCA2D0E4544 /* SaveSearchPromptView.swift in Sources */,
 				8D6807D559D2EF0160721C32 /* SearchListEmptyViewModel.swift in Sources */,
+				B6F67B99287EEE8B003213ED /* WishlistAdTableViewCell.swift in Sources */,
 				8D680EAA171AAD536A2E0FDC /* SearchListEmptyView.swift in Sources */,
 				8D680B43A9AC644605694747 /* SelectionView.swift in Sources */,
 				8D68049F4E30F91924B67CD3 /* SelectionOptionCell.swift in Sources */,
