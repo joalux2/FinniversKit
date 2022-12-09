@@ -27,8 +27,8 @@ public class MarketsGridViewDemoView: UIView {
         addSubview(collectionView)
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingL),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingL),
             collectionView.heightAnchor.constraint(equalToConstant: collectionView.calculateSize(constrainedTo: frame.width).height),
         ])
     }

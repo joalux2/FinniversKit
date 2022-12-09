@@ -7,6 +7,34 @@ import UIKit
 public class MarketsGridView: UIView, MarketsView {
     // MARK: - Internal properties
 
+    private let cornerRadius: CGFloat = 16
+
+    private lazy var sharpShadowView: UIView = {
+        let view = UIView(withAutoLayout: true)
+        view.backgroundColor = .clear
+        view.layer.cornerRadius = cornerRadius
+        view.clipsToBounds = true
+        view.layer.applyShadow(ofType: .sharp)
+        return view
+    }()
+
+    private lazy var smoothShadowView: UIView = {
+        let view = UIView(withAutoLayout: true)
+        view.backgroundColor = .clear
+        view.layer.cornerRadius = cornerRadius
+        view.clipsToBounds = true
+        view.layer.applyShadow(ofType: .smooth)
+        return view
+    }()
+
+    private lazy var containerView: UIView = {
+        let view = UIView(withAutoLayout: true)
+        view.backgroundColor = .tileBackgroundColor
+        view.layer.cornerRadius = cornerRadius
+        view.clipsToBounds = true
+        return view
+    }()
+
     @objc private lazy var collectionView: UICollectionView = {
         let layout = MarketsGridViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -17,15 +45,16 @@ public class MarketsGridView: UIView, MarketsView {
         collectionView.backgroundColor = .clear
         collectionView.clipsToBounds = false
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(MarketsGridViewCell.self)
         return collectionView
     }()
 
     private weak var delegate: MarketsViewDelegate?
     private weak var dataSource: MarketsViewDataSource?
 
-    private let itemSize = CGSize(width: 92, height: 72)
-    private let itemSpacing: CGFloat = .spacingS
-    private let sideMargin: CGFloat = .spacingM
+    private let itemSize = CGSize(width: 62, height: 62)
+    private let itemSpacing: CGFloat = .spacingL
+    private let sideMargin: CGFloat = 0
     private let rowSpacing: CGFloat = .spacingS
     private var bothSidesGradientLayer: CAGradientLayer? {
         willSet {
@@ -67,14 +96,37 @@ public class MarketsGridView: UIView, MarketsView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         updateGradient()
+        styleShadowAfterLayout()
+    }
+
+    private func styleShadowAfterLayout() {
+        self.smoothShadowView.layer.shadowPath = CGPath(
+            roundedRect: self.smoothShadowView.bounds,
+            cornerWidth: self.smoothShadowView.layer.cornerRadius,
+            cornerHeight: self.smoothShadowView.layer.cornerRadius,
+            transform: nil
+        )
+        self.sharpShadowView.layer.shadowPath = CGPath(
+            roundedRect: self.sharpShadowView.bounds,
+            cornerWidth: self.sharpShadowView.layer.cornerRadius,
+            cornerHeight: self.sharpShadowView.layer.cornerRadius,
+            transform: nil
+        )
     }
 
     private func setup() {
         clipsToBounds = false
         backgroundColor = .clear
-        collectionView.register(MarketsGridViewCell.self)
-        addSubview(collectionView)
 
+        addSubview(sharpShadowView)
+        addSubview(smoothShadowView)
+        addSubview(containerView)
+
+        sharpShadowView.fillInSuperview()
+        smoothShadowView.fillInSuperview()
+        containerView.fillInSuperview()
+
+        containerView.addSubview(collectionView)
         collectionView.fillInSuperview()
 
         DispatchQueue.main.async { [weak self] in
@@ -112,6 +164,7 @@ public class MarketsGridView: UIView, MarketsView {
     // MARK: - Private
 
     private func numberOfRows(for viewWidth: CGFloat) -> CGFloat {
+        return 1
         guard
             let numberOfItems = dataSource?.numberOfItems(inMarketsView: self),
             numberOfItems > 0
@@ -167,6 +220,7 @@ public class MarketsGridView: UIView, MarketsView {
     }
 
     private func updateGradient() {
+        return
         guard collectionView.bounds.width < collectionView.contentSize.width else {
             layer.mask?.removeFromSuperlayer()
             layer.mask = nil
@@ -248,5 +302,44 @@ extension MarketsGridView: UICollectionViewDelegate {
 
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateGradient()
+    }
+}
+
+private extension CALayer {
+
+    enum ShadowType {
+        case sharp
+        case smooth
+    }
+
+    func applyShadow(ofType type: ShadowType) {
+        self.masksToBounds = false
+
+        switch type {
+        case .sharp:
+            self.shadowOpacity = 0.25
+            self.shadowOffset = CGSize(width: 0, height: 1)
+            self.shadowColor = UIColor.tileSharpShadowColor.cgColor
+            self.shadowRadius = 1
+        case .smooth:
+            self.shadowOpacity = 0.16
+            self.shadowOffset = CGSize(width: 0, height: 1)
+            self.shadowColor = UIColor.tileSmoothShadowColor.cgColor
+            self.shadowRadius = 5
+        }
+    }
+}
+
+private extension UIColor {
+    class var tileSharpShadowColor: UIColor {
+        return .blueGray600
+    }
+
+    class var tileSmoothShadowColor: UIColor {
+        return .blueGray600
+    }
+
+    class var tileBackgroundColor: UIColor {
+        return .dynamicColor(defaultColor: .milk, darkModeColor: .blueGray700)
     }
 }

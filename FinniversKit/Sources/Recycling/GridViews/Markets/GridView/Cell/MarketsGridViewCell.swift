@@ -7,34 +7,6 @@ import UIKit
 class MarketsGridViewCell: UICollectionViewCell {
     // MARK: - Internal properties
 
-    private let cornerRadius: CGFloat = 16
-
-    private lazy var sharpShadowView: UIView = {
-        let view = UIView(withAutoLayout: true)
-        view.backgroundColor = .clear
-        view.layer.cornerRadius = cornerRadius
-        view.clipsToBounds = true
-        view.layer.applyShadow(ofType: .sharp)
-        return view
-    }()
-
-    private lazy var smoothShadowView: UIView = {
-        let view = UIView(withAutoLayout: true)
-        view.backgroundColor = .clear
-        view.layer.cornerRadius = cornerRadius
-        view.clipsToBounds = true
-        view.layer.applyShadow(ofType: .smooth)
-        return view
-    }()
-
-    private lazy var containerView: UIView = {
-        let view = UIView(withAutoLayout: true)
-        view.backgroundColor = .tileBackgroundColor
-        view.layer.cornerRadius = cornerRadius
-        view.clipsToBounds = true
-        return view
-    }()
-
     private lazy var contentStackView = UIStackView(axis: .vertical, spacing: .spacingS, withAutoLayout: true)
 
     private lazy var iconImageView: UIImageView = {
@@ -84,20 +56,13 @@ class MarketsGridViewCell: UICollectionViewCell {
         isAccessibilityElement = true
         backgroundColor = .clear
 
-        addSubview(sharpShadowView)
-        addSubview(smoothShadowView)
-        addSubview(containerView)
-        containerView.addSubview(externalLinkImageView)
-        containerView.addSubview(contentStackView)
+        addSubview(externalLinkImageView)
+        addSubview(contentStackView)
         contentStackView.addArrangedSubviews([iconImageView, titleLabel])
 
-        sharpShadowView.fillInSuperview()
-        smoothShadowView.fillInSuperview()
-        containerView.fillInSuperview()
-
         NSLayoutConstraint.activate([
-            iconImageView.heightAnchor.constraint(equalToConstant: 28),
-            iconImageView.widthAnchor.constraint(equalToConstant: 42),
+            iconImageView.heightAnchor.constraint(equalToConstant: 25),
+            iconImageView.widthAnchor.constraint(equalToConstant: 25),
 
             contentStackView.widthAnchor.constraint(equalTo: widthAnchor),
             contentStackView.heightAnchor.constraint(lessThanOrEqualTo: heightAnchor),
@@ -111,11 +76,6 @@ class MarketsGridViewCell: UICollectionViewCell {
     }
 
     // MARK: - Superclass Overrides
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        styleShadowAfterLayout()
-    }
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -134,49 +94,6 @@ class MarketsGridViewCell: UICollectionViewCell {
 
             let showExternalLinkIcon = model?.showExternalLinkIcon ?? false
             externalLinkImageView.isHidden = !showExternalLinkIcon
-        }
-    }
-}
-
-// MARK: - Private functions
-private extension MarketsGridViewCell {
-    func styleShadowAfterLayout() {
-        self.smoothShadowView.layer.shadowPath = CGPath(
-            roundedRect: self.smoothShadowView.bounds,
-            cornerWidth: self.smoothShadowView.layer.cornerRadius,
-            cornerHeight: self.smoothShadowView.layer.cornerRadius,
-            transform: nil
-        )
-        self.sharpShadowView.layer.shadowPath = CGPath(
-            roundedRect: self.sharpShadowView.bounds,
-            cornerWidth: self.sharpShadowView.layer.cornerRadius,
-            cornerHeight: self.sharpShadowView.layer.cornerRadius,
-            transform: nil
-        )
-    }
-}
-
-private extension CALayer {
-
-    enum ShadowType {
-        case sharp
-        case smooth
-    }
-
-    func applyShadow(ofType type: ShadowType) {
-        self.masksToBounds = false
-
-        switch type {
-        case .sharp:
-            self.shadowOpacity = 0.25
-            self.shadowOffset = CGSize(width: 0, height: 1)
-            self.shadowColor = UIColor.tileSharpShadowColor.cgColor
-            self.shadowRadius = 1
-        case .smooth:
-            self.shadowOpacity = 0.16
-            self.shadowOffset = CGSize(width: 0, height: 1)
-            self.shadowColor = UIColor.tileSmoothShadowColor.cgColor
-            self.shadowRadius = 5
         }
     }
 }
