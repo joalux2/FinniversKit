@@ -46,15 +46,18 @@ public class MarketsGridView: UIView, MarketsView {
         collectionView.clipsToBounds = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(MarketsGridViewCell.self)
+        collectionView.contentInset = UIEdgeInsets(vertical: 0, horizontal: .spacingS)
         return collectionView
     }()
+
+    private lazy var searchBarView = SearchBarView(withAutoLayout: true)
 
     private weak var delegate: MarketsViewDelegate?
     private weak var dataSource: MarketsViewDataSource?
 
-    private let itemSize = CGSize(width: 62, height: 62)
+    private let itemSize = CGSize(width: 67, height: 62)
     private let itemSpacing: CGFloat = .spacingL
-    private let sideMargin: CGFloat = 0
+    private let sideMargin: CGFloat = .spacingS
     private let rowSpacing: CGFloat = .spacingS
     private var bothSidesGradientLayer: CAGradientLayer? {
         willSet {
@@ -126,8 +129,20 @@ public class MarketsGridView: UIView, MarketsView {
         smoothShadowView.fillInSuperview()
         containerView.fillInSuperview()
 
+        containerView.addSubview(searchBarView)
         containerView.addSubview(collectionView)
-        collectionView.fillInSuperview()
+
+        NSLayoutConstraint.activate([
+            searchBarView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            searchBarView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            searchBarView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+
+            collectionView.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: .spacingS),
+            collectionView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -.spacingS),
+            collectionView.heightAnchor.constraint(equalToConstant: 72),
+        ])
 
         DispatchQueue.main.async { [weak self] in
             UIView.animate(withDuration: 0.2, animations: {
@@ -153,6 +168,7 @@ public class MarketsGridView: UIView, MarketsView {
     }
 
     public func calculateSize(constrainedTo width: CGFloat) -> CGSize {
+        print(">> calc size")
         let gridInsets = insets(for: width)
         let rows = numberOfRows(for: width)
 
