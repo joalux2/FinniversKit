@@ -6,6 +6,7 @@ import UIKit
 import FinniversKit
 
 @UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 

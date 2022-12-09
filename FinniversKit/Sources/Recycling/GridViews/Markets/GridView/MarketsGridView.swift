@@ -155,6 +155,10 @@ public class MarketsGridView: UIView, MarketsView {
 
     // MARK: - Functionality
 
+    public func configure(withSearchPlaceholder searchPlaceholder: String, searchIcon: UIImage) {
+        searchBarView.configure(withPlaceholder: searchPlaceholder, icon: searchIcon)
+    }
+
     public func reloadData() {
         collectionView.reloadData()
 

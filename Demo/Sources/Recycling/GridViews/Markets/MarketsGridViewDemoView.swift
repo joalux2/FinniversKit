@@ -23,6 +23,7 @@ public class MarketsGridViewDemoView: UIView {
 
     private func setup() {
         let collectionView = MarketsGridView(delegate: self, dataSource: self)
+        collectionView.configure(withSearchPlaceholder: "Søk etter ganni eller gåstol...", searchIcon: UIImage(named: .magnifyingGlass))
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(collectionView)
         NSLayoutConstraint.activate([
