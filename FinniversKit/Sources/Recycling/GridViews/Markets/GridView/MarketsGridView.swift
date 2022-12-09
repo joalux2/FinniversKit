@@ -7,7 +7,7 @@ import UIKit
 public class MarketsGridView: UIView, MarketsView {
     // MARK: - Internal properties
 
-    private let cornerRadius: CGFloat = 16
+    private let cornerRadius: CGFloat = 32
 
     private lazy var sharpShadowView: UIView = {
         let view = UIView(withAutoLayout: true)
