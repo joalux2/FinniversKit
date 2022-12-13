@@ -52,8 +52,8 @@ public class MarketsGridView: UIView, MarketsView {
 
     private lazy var searchBarView = SearchBarView(withAutoLayout: true)
 
-    private weak var delegate: MarketsViewDelegate?
-    private weak var dataSource: MarketsViewDataSource?
+    public weak var delegate: MarketsViewDelegate?
+    public weak var dataSource: MarketsViewDataSource?
 
     private let itemSize = CGSize(width: 67, height: 62)
     private let itemSpacing: CGFloat = .spacingL
@@ -155,8 +155,8 @@ public class MarketsGridView: UIView, MarketsView {
 
     // MARK: - Functionality
 
-    public func configure(withSearchPlaceholder searchPlaceholder: String, searchIcon: UIImage) {
-        searchBarView.configure(withPlaceholder: searchPlaceholder, icon: searchIcon)
+    public func configure(withSearchPlaceholder searchPlaceholder: String) {
+        searchBarView.configure(withPlaceholder: searchPlaceholder)
     }
 
     public func reloadData() {

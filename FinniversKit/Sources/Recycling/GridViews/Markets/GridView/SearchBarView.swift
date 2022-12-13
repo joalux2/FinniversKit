@@ -3,6 +3,7 @@ import Foundation
 class SearchBarView: UIView {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView(withAutoLayout: true)
+        imageView.image = UIImage(named: .magnifyingGlass)
         return imageView
     }()
 
@@ -47,9 +48,8 @@ class SearchBarView: UIView {
         ])
     }
 
-    func configure(withPlaceholder placeholder: String, icon: UIImage) {
+    func configure(withPlaceholder placeholder: String) {
         searchBar.placeholder = placeholder
-        imageView.image = icon
     }
 }
 
