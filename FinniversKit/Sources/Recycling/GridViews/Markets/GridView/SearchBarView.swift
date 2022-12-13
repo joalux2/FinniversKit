@@ -3,7 +3,8 @@ import Foundation
 class SearchBarView: UIView {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView(withAutoLayout: true)
-        imageView.image = UIImage(named: .magnifyingGlass)
+        imageView.image = UIImage(named: .magnifyingGlass).withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = .iconPrimary
         return imageView
     }()
 
@@ -11,7 +12,7 @@ class SearchBarView: UIView {
         let searchBar = UISearchBar(withAutoLayout: true)
         searchBar.searchBarStyle = .default
         searchBar.setImage(UIImage(), for: .search, state: .normal)
-        searchBar.searchTextField.backgroundColor = .bgPrimary
+        searchBar.searchTextField.backgroundColor = .searchBarBackgroundColor
         searchBar.backgroundImage = UIImage()
         return searchBar
     }()
@@ -64,5 +65,11 @@ extension UIView {
         cgPath.addLines(between: cgPoint)
         caShapeLayer.path = cgPath
         layer.addSublayer(caShapeLayer)
+    }
+}
+
+private extension UIColor {
+    class var searchBarBackgroundColor: UIColor {
+        return .dynamicColor(defaultColor: .milk, darkModeColor: .blueGray700)
     }
 }
