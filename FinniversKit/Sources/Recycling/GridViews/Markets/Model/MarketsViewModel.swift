@@ -9,6 +9,7 @@ public protocol MarketsViewModel {
     var showExternalLinkIcon: Bool { get }
     var title: String { get }
     var accessibilityLabel: String { get }
+    var multilineTitle: Bool { get }
 }
 
 public extension MarketsViewModel {

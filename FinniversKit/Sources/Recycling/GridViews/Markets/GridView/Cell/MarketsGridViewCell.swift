@@ -34,11 +34,15 @@ class MarketsGridViewCell: UICollectionViewCell {
             label = Label(style: .caption)
         } else {
             label = Label(style: .detail)
+            label.font = UIFont.detail.withSize(11)
         }
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         return label
     }()
+
+    private lazy var iconTopAnchor = iconImageView.topAnchor.constraint(equalTo: topAnchor)
+    private lazy var titleTopAnchor = titleLabel.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: .spacingXS)
 
     // MARK: - Setup
 
@@ -57,16 +61,18 @@ class MarketsGridViewCell: UICollectionViewCell {
         backgroundColor = .clear
 
         addSubview(externalLinkImageView)
-        addSubview(contentStackView)
-        contentStackView.addArrangedSubviews([iconImageView, titleLabel])
+        addSubview(iconImageView)
+        addSubview(titleLabel)
 
         NSLayoutConstraint.activate([
             iconImageView.heightAnchor.constraint(equalToConstant: 25),
             iconImageView.widthAnchor.constraint(equalToConstant: 25),
+            iconTopAnchor,
+            iconImageView.widthAnchor.constraint(equalTo: widthAnchor),
 
-            contentStackView.widthAnchor.constraint(equalTo: widthAnchor),
-            contentStackView.heightAnchor.constraint(lessThanOrEqualTo: heightAnchor),
-            contentStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            titleTopAnchor,
+            titleLabel.widthAnchor.constraint(equalTo: widthAnchor),
+            titleLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
 
             externalLinkImageView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             externalLinkImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
@@ -94,6 +100,13 @@ class MarketsGridViewCell: UICollectionViewCell {
 
             let showExternalLinkIcon = model?.showExternalLinkIcon ?? false
             externalLinkImageView.isHidden = !showExternalLinkIcon
+
+            let supportsMultilineTitle = model?.multilineTitle ?? false
+            if supportsMultilineTitle {
+                iconTopAnchor.constant = 0
+                titleTopAnchor.constant = .spacingS
+                titleLabel.numberOfLines = 2
+            }
         }
     }
 }
