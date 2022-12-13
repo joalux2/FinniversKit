@@ -41,8 +41,8 @@ class MarketsGridViewCell: UICollectionViewCell {
         return label
     }()
 
-    private lazy var iconTopAnchor = iconImageView.topAnchor.constraint(equalTo: topAnchor)
-    private lazy var titleTopAnchor = titleLabel.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: .spacingXS)
+    private lazy var iconTopAnchor = iconImageView.topAnchor.constraint(equalTo: topAnchor, constant: .spacingS)
+    private lazy var titleTopAnchor = titleLabel.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: .spacingS)
 
     // MARK: - Setup
 
