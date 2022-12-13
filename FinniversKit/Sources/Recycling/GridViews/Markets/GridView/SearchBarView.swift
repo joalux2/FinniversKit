@@ -4,7 +4,7 @@ class SearchBarView: UIView {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView(withAutoLayout: true)
         imageView.image = UIImage(named: .magnifyingGlass).withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = .iconPrimary
+        imageView.tintColor = .textPrimary
         return imageView
     }()
 
