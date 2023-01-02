@@ -7,11 +7,9 @@ class FrontPageShelfDemoView: UIView {
         view.shelfDelegate = self
         return view
     }()
-    
-    private var favoriteItems: [RecentlyFavoritedViewmodel] = []
-    
+
     private var savedItems: [SavedSearchShelfViewModel] = []
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -22,7 +20,6 @@ class FrontPageShelfDemoView: UIView {
     }
     
     private func setup() {
-        favoriteItems = RecentlyFavoritedFactory.create(numberOfItems: 10)
         savedItems = SavedSearchShelfFactory.create(numberOfItems: 10)
         addSubview(shelfView)
         shelfView.fillInSuperview()
@@ -32,50 +29,28 @@ class FrontPageShelfDemoView: UIView {
 
 extension FrontPageShelfDemoView: FrontPageShelfViewDataSource {
     func frontPageShelfView(_ frontPageShelfView: FrontPageShelfView, titleForSectionAt index: Int) -> String {
-        ["Lagrede søk", "nylige favoritter"][index]
+        "Lagrede søk"
     }
-    
+
     func frontPageShelfView(_ frontPageShelfView: FrontPageShelfView, titleForButtonForSectionAt index: Int) -> String {
         "Se alle"
     }
-    
+
     func frontPageShelfView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath, withItem item: AnyHashable) -> UICollectionViewCell? {
-        if let model = item as? SavedSearchShelfViewModel {
-            let cell = collectionView.dequeue(SavedSearchShelfCell.self, for: indexPath)
-            cell.configure(withModel: model)
-            cell.imageDatasource = self
-            cell.loadImage()
-            
-            return cell
-        } else if let model = item as? RecentlyFavoritedViewmodel {
-            let cell = collectionView.dequeue(RecentlyFavoritedShelfCell.self, for: indexPath)
-            cell.configure(withModel: model)
-            cell.buttonAction = { [weak self]  _, _ in
-                self?.unfavoriteItem(item, atIndexPath: indexPath)
-            }
-            cell.datasource = self
-            cell.loadImage()
-            return cell
-        }
-        return nil
+        guard let model = item as? SavedSearchShelfViewModel else { return nil }
+
+        let cell = collectionView.dequeue(SavedSearchShelfCell.self, for: indexPath)
+        cell.configure(withModel: model)
+        cell.imageDatasource = self
+        cell.loadImage()
+        return cell
     }
-    
-    func frontPageShelfView(cellClassesIn collectionView: UICollectionView) -> [UICollectionViewCell.Type] {
-        [SavedSearchShelfCell.self, RecentlyFavoritedShelfCell.self]
-    }
-    
+
     func datasource(forSection section: FrontPageShelfView.Section) -> [AnyHashable] {
         switch section {
         case .savedSearch:
             return savedItems
-        case .recentlyFavorited:
-            return favoriteItems
         }
-    }
-    
-    private func unfavoriteItem(_ item: AnyHashable,  atIndexPath indexPath: IndexPath) {
-        favoriteItems.remove(at: indexPath.item)
-        shelfView.removeItem(item)
     }
 }
 
@@ -109,11 +84,7 @@ extension FrontPageShelfDemoView: FrontPageShelfDelegate {
     func frontPageShelfView(_ view: FrontPageShelfView, didSelectHeaderForSection section: FrontPageShelfView.Section) {
         print("Header for section \(section) pressed")
     }
-    
-    func frontPageShelfView(_ view: FrontPageShelfView, didSelectFavoriteItem item: RecentlyFavoritedViewmodel) {
-        print("selected favorited item")
-    }
-    
+
     func frontPageShelfView(_ view: FrontPageShelfView, didSelectSavedSearchItem item: SavedSearchShelfViewModel) {
         print("selected saved item")
     }
