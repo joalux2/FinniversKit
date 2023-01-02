@@ -8,7 +8,7 @@ class SavedSearchShelfDemoView: UIView {
     enum Section: CaseIterable {
         case savedSearch
     }
-    
+
     private var items: [SavedSearchShelfViewModel] = []
     
     private var datasource: Datasource!
