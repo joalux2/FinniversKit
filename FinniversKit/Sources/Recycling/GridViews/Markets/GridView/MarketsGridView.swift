@@ -131,6 +131,7 @@ public class MarketsGridView: UIView, MarketsView {
         let gridInsets = insets(for: width)
         let rows = numberOfRows(for: width)
 
+        
         var height = (itemSize.height * CGFloat(rows)) + (rowSpacing * CGFloat(rows - 1)) + gridInsets.top + gridInsets.bottom
                 
         return CGSize(width: width, height: height)
